@@ -1,5 +1,11 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
+   <!-- 自定义背景音乐 -->
+<audio id="bgMusic" loop preload="auto" style="display:none;">
+  <source src="bgm.mp3" type="audio/mpeg">
+  <!-- 如果还有 ogg / wav 可再写一行 <source src="bgm.ogg" type="audio/ogg"> -->
+  您的浏览器不支持音频标签。
+</audio>
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -167,9 +173,14 @@ createSnow();
 let timer;
 function start(){
     document.getElementById('welcome').style.display='none';
-    showOne();                       // 先弹一个
-    timer=setInterval(showOne,500); // 每1.8s继续弹
-    setTimeout(()=>clearInterval(timer),100000); // 30s后停止
+    showOne();                              // 先弹一个
+    timer=setInterval(showOne,500);         // 继续弹
+    setTimeout(()=>clearInterval(timer),100000);
+
+    /* ===== 播放自定义音乐 ===== */
+    const music = document.getElementById('bgMusic');
+    music.volume = 0.6;   // 0~1 音量，可自己调
+    music.play().catch(e=>console.log('音乐播放被浏览器拦截:',e));
 }
 
 /* === 5. 弹出单个祝福 === */
