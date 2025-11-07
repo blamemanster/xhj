@@ -168,7 +168,7 @@ let timer;
 function start(){
     document.getElementById('welcome').style.display='none';
     showOne();                       // 先弹一个
-    timer=setInterval(showOne,200); // 每1.8s继续弹
+    timer=setInterval(showOne,300); // 每1.8s继续弹
     setTimeout(()=>clearInterval(timer),100000); // 30s后停止
 }
 
