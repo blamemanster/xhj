@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>冬日祝福</title>
+<style>
+    *{margin:0;padding:0;box-sizing:border-box;}
+    body{
+        height:100vh;
+        background:linear-gradient(135deg,#e3f2fd,#90caf9);
+        font-family:PingFang SC,Microsoft YaHei;
+        overflow:hidden;
+        cursor:pointer;
+    }
+    /* 雪花 */
+    .snowflake{
+        position:absolute;
+        top:-20px;
+        color:rgba(255,255,255,.9);
+        font-size:1.2em;
+        animation:fall 8s linear infinite;
+        pointer-events:none;
+    }
+    @keyframes fall{to{transform:translateY(100vh) rotate(360deg);}}
+
+    /* 欢迎弹窗 */
+    .welcome{
+        position:fixed;
+        top:50%;left:50%;
+        transform:translate(-50%,-50%);
+        background:#fff;
+        border-radius:20px;
+        padding:35px 40px;
+        box-shadow:0 8px 30px rgba(0,0,0,.25);
+        z-index:999;
+        text-align:center;
+    }
+    .welcome h2{color:#1565c0;margin-bottom:20px;font-size:1.6em;}
+    .welcome button{
+        background:#1976d2;color:#fff;border:none;
+        padding:10px 28px;border-radius:18px;font-size:1em;cursor:pointer;
+    }
+
+    /* 祝福弹窗 */
+    .blessing{
+        position:absolute;
+        background:#fff;
+        border-radius:16px;
+        padding:20px 25px;
+        box-shadow:0 4px 20px rgba(0,0,0,.2);
+        min-width:240px;
+        text-align:center;
+        left:var(--x);top:var(--y);
+        animation:pop .5s cubic-bezier(.68,-.55,.27,1.55) forwards;
+        transform:translate(-50%,-50%) scale(.7);
+        opacity:0;
+    }
+    @keyframes pop{to{transform:translate(-50%,-50%) scale(1);opacity:1;}}
+    .blessing p{color:#0d47a1;margin-bottom:12px;font-size:1.15em;}
+    .blessing span{
+        background:#42a5f5;color:#fff;border:none;
+        padding:6px 18px;border-radius:12px;font-size:.9em;cursor:pointer;
+    }
+</style>
+</head>
+<body>
+
+<!-- 雪花容器（提前生成，避免空指针） -->
+<div id="snowBox"></div>
+
+<!-- 欢迎弹窗 -->
+<div id="welcome" class="welcome">
+    <h2 id="welcomeText">xxx，你的冬日祝福已送达，注意查收</h2>
+    <button onclick="start()">确定</button>
+</div>
+
+<script>
+/* === 1. 基本配置 === */
+const friendName = '小明';                       // ← 改这里
+const blessings = [
+    '愿这个冬天，温暖与你常伴，幸福如期而至',
+    '雪花纷飞的日子里，愿你心中永远有暖阳',
+    '冬日虽寒，有你的每一天都温暖如春',
+    '愿你的冬天，不缺暖阳，不缺微笑，不缺拥抱',
+    '寒冷的季节，愿你被这个世界温柔以待'
+];
+
+/* === 2. 欢迎文案 === */
+document.getElementById('welcomeText').innerHTML =
+    `${friendName}，你的冬日祝福已送达，注意查收`;
+
+/* === 3. 生成雪花 === */
+function createSnow(){
+    for(let i=0;i<60;i++){
+        const s=document.createElement('div');
+        s.className='snowflake';
+        s.innerHTML='❄';
+        s.style.left=Math.random()*100+'%';
+        s.style.animationDuration=(6+Math.random()*4)+'s';
+        s.style.animationDelay=Math.random()*3+'s';
+        s.style.fontSize=(.8+Math.random()*.8)+'em';
+        snowBox.appendChild(s);
+    }
+}
+createSnow();
+
+/* === 4. 点击确定 → 开始祝福雨 === */
+let timer;
+function start(){
+    document.getElementById('welcome').style.display='none';
+    showOne();                       // 先弹一个
+    timer=setInterval(showOne,100); // 每1.8s继续弹
+    setTimeout(()=>clearInterval(timer),30000); // 30s后停止
+}
+
+/* === 5. 弹出单个祝福 === */
+function showOne(){
+    const b=document.createElement('div');
+    b.className='blessing';
+    b.style.setProperty('--x',(15+Math.random()*70)+'%');
+    b.style.setProperty('--y',(20+Math.random()*60)+'%');
+    b.innerHTML=`
+        <p>${blessings[Math.floor(Math.random()*blessings.length)]}</p>
+        <span onclick="this.parentElement.remove()">收到</span>`;
+    document.body.appendChild(b);
+}
+</script>
+</body>
+</html>
