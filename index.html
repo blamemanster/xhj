@@ -174,7 +174,7 @@ let timer;
 function start(){
     document.getElementById('welcome').style.display='none';
     showOne();                              // 先弹一个
-    timer=setInterval(showOne,500);         // 继续弹
+    timer=setInterval(showOne,350);         // 继续弹
     setTimeout(()=>clearInterval(timer),100000);
 
     /* ===== 播放自定义音乐 ===== */
