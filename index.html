@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>冬日祝福</title>
+<title>❤️专属于你的冬日祝福❤️</title>
 <style>
     *{margin:0;padding:0;box-sizing:border-box;}
     body{
@@ -77,18 +77,56 @@
 
 <script>
 /* === 1. 基本配置 === */
-const friendName = '小明';                       // ← 改这里
+const friendName = '小灰灰';                       // ← 改这里
 const blessings = [
     '愿这个冬天，温暖与你常伴，幸福如期而至',
     '雪花纷飞的日子里，愿你心中永远有暖阳',
     '冬日虽寒，有你的每一天都温暖如春',
     '愿你的冬天，不缺暖阳，不缺微笑，不缺拥抱',
-    '寒冷的季节，愿你被这个世界温柔以待'
+    '寒冷的季节，愿你被这个世界温柔以待',
+    '愿你的每一天，都如冬日炉火般温暖明亮',
+    '这个冬天，愿你所有美好都恰逢其时',
+    '愿你与美好不期而遇，与温暖相伴而行',
+    '冬日暖阳，好日常在，人间烟火，谁能不爱',
+    '愿你的冬天，藏得下小确幸，留得住小美好',
+    '天冷了，照顾好自己',
+    '好好爱自己',
+    '要相信自己奥',
+    '记得吃水果',
+    '天天开心',
+    '多喝热水',
+    '每天都要元气满满',
+    '金榜题名',
+    '记得吃水果',
+    '真棒',
+    '别熬夜',
+    '保持微笑吖',
+    '早点休息',
+    '别累着自己，你已经很棒了',
+    '有你真好',
+    '我想你了',
+    '顺顺利利',
+    '学会爱自己，才能更好的爱别人',
+    '记得好好护肤',
+    '天冷了，多穿衣服',
+    '今天过得开心嘛',
+    '期待下一次见面',
+    '白茶清欢无别事，我在等风也在等你',
+    '我好想你',
+    '愿你出走半生，归来仍是少年',
+    '愿所有烦恼都消失',
+    '你超棒的',
+    '保持好心情',
+    '你每天都要开心',
+    '冬天来临还是你和我',
+    '霉运都散开',
+    '有你的冬天不会冷',
+    '梦想成真',
 ];
 
 /* === 2. 欢迎文案 === */
 document.getElementById('welcomeText').innerHTML =
-    `${friendName}，你的冬日祝福已送达，注意查收`;
+    `${friendName}，你的专属冬日礼物已送达`;
 
 /* === 3. 生成雪花 === */
 function createSnow(){
@@ -110,8 +148,8 @@ let timer;
 function start(){
     document.getElementById('welcome').style.display='none';
     showOne();                       // 先弹一个
-    timer=setInterval(showOne,100); // 每1.8s继续弹
-    setTimeout(()=>clearInterval(timer),30000); // 30s后停止
+    timer=setInterval(showOne,200); // 每1.8s继续弹
+    setTimeout(()=>clearInterval(timer),100000); // 30s后停止
 }
 
 /* === 5. 弹出单个祝福 === */
