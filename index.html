@@ -103,7 +103,7 @@
 
 <script>
 /* === 1. 基本配置 === */
-const friendName = '小灰灰';                       // ← 改这里
+const friendName = '小灰灰'; // ← 改成你的名字
 const blessings = [
     '愿这个冬天，温暖与你常伴，幸福如期而至',
     '雪花纷飞的日子里，愿你心中永远有暖阳',
@@ -123,7 +123,6 @@ const blessings = [
     '多喝热水',
     '每天都要元气满满',
     '金榜题名',
-    '记得吃水果',
     '真棒',
     '别熬夜',
     '保持微笑吖',
@@ -169,42 +168,43 @@ function createSnow(){
 }
 createSnow();
 
-/* === 4. 点击确定 → 开始祝福雨 === */
-/* ===== 音乐高潮 & 循环设置 ===== */
+/* === 4. 音乐控制 === */
 const music = document.getElementById('bgMusic');
-
-// ① 点击“确定”时从高潮播放
-function start(){
-    document.getElementById('welcome').style.display='none';
-    music.currentTime = 23;   // 高潮起始秒（自己改）
-    music.volume = 0.6;
-    music.play().catch(e=>console.log(e));
-
-    showOne();
-    timer=setInterval(showOne,300);
-    setTimeout(()=>clearInterval(timer),100000);
-}
-
-// ② 完整播完一次后回到开头再循环（只绑一次）
 music.addEventListener('ended', () => {
     music.currentTime = 0;
     music.play();
 });
 
-/* === 5. 弹出单个祝福 === */
-/* === 5. 弹出单个祝福（带随机淡色） === */
+/* === 5. 循环祝福雨（自动清理旧弹窗） === */
+let timer = null;
+function start(){
+    document.getElementById('welcome').style.display='none';
+    music.currentTime = 23; // 高潮起始点，可自行改
+    music.volume = 0.6;
+    music.play().catch(e=>console.log(e));
+
+    // 持续循环弹窗
+    if(timer) clearInterval(timer);
+    timer = setInterval(showOne, 300); // 每0.3秒弹出一个
+}
+
+/* === 6. 弹出单个祝福（随机淡色+自动消失） === */
 function showOne(){
     const colors=['#ffe8e8','#fff0f5','#fff8e1','#e8f5e9','#e0f2f1','#e3f2fd','#f3e5f5','#fce4ec'];
     const b=document.createElement('div');
     b.className='blessing';
     b.style.setProperty('--x',(15+Math.random()*70)+'%');
     b.style.setProperty('--y',(20+Math.random()*60)+'%');
-    b.style.setProperty('--bgColor',colors[Math.floor(Math.random()*colors.length)]); // ← 随机淡色
+    b.style.setProperty('--bgColor',colors[Math.floor(Math.random()*colors.length)]);
     b.innerHTML=`
         <p>${blessings[Math.floor(Math.random()*blessings.length)]}</p>
         <span onclick="this.parentElement.remove()">收到</span>`;
     document.body.appendChild(b);
+
+    // 💨 6秒后自动消失，防止页面过载
+    setTimeout(()=>b.remove(),6000);
 }
 </script>
+
 </body>
 </html>
