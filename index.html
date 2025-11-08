@@ -170,18 +170,26 @@ function createSnow(){
 createSnow();
 
 /* === 4. 点击确定 → 开始祝福雨 === */
-let timer;
+/* ===== 音乐高潮 & 循环设置 ===== */
+const music = document.getElementById('bgMusic');
+
+// ① 点击“确定”时从高潮播放
 function start(){
     document.getElementById('welcome').style.display='none';
-    showOne();                              // 先弹一个
-    timer=setInterval(showOne,300);         // 继续弹
-    setTimeout(()=>clearInterval(timer),100000);
+    music.currentTime = 23;   // 高潮起始秒（自己改）
+    music.volume = 0.6;
+    music.play().catch(e=>console.log(e));
 
-    /* ===== 播放自定义音乐 ===== */
-    const music = document.getElementById('bgMusic');
-    music.volume = 0.6;   // 0~1 音量，可自己调
-    music.play().catch(e=>console.log('音乐播放被浏览器拦截:',e));
+    showOne();
+    timer=setInterval(showOne,300);
+    setTimeout(()=>clearInterval(timer),100000);
 }
+
+// ② 完整播完一次后回到开头再循环（只绑一次）
+music.addEventListener('ended', () => {
+    music.currentTime = 0;
+    music.play();
+});
 
 /* === 5. 弹出单个祝福 === */
 /* === 5. 弹出单个祝福（带随机淡色） === */
