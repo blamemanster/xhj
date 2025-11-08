@@ -201,10 +201,22 @@ function showOne(){
         <span onclick="this.parentElement.remove()">收到</span>`;
     document.body.appendChild(b);
 
-    // 💨 6秒后自动消失，防止页面过载
-    setTimeout(()=>b.remove(),6000);
+    // 💨 6秒后自动淡出消失
+    b.style.animation = "fadeOut 6s forwards"; // 添加渐隐动画
+    setTimeout(()=>b.remove(),10000);
 }
+
+/* === 7. 渐隐消失的CSS动画 === */
+const style = document.createElement('style');
+style.innerHTML = `
+@keyframes fadeOut {
+    0% { opacity: 1; }
+    100% { opacity: 0; }
+}
+`;
+document.head.appendChild(style);
 </script>
+
 
 </body>
 </html>
